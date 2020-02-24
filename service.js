@@ -4,28 +4,47 @@ const os = require("os");
 const app = express();
 const port = process.env.PORT || 3000;
 const remotePort = process.env.REMOTE_PORT || 80;
-const version = process.env.VERSION || "1.0";
 const hostname = os.hostname();
 const serviceName = process.env.SERVICE;
 const remoteServiceName = process.env.REMOTE_SERVICE;
+const mongoClient = require('mongodb').MongoClient;
+const config = require('config');
 
-var res = {
-	host: hostname, 
-	version: version, 
-	service: serviceName, 
-	port: port, 
-	remoteServiceName: remoteServiceName,
-	remotePort: remotePort
-};
-var response = JSON.stringify(res);
+app.get('/', (req, res) => {
+	mongoClient.connect(config.DBHost, {useUnifiedTopology: true}, function(err, db) {
+		if (err) throw err;
 
-app.get('/', (req, res) => res.send(response));
+		var dbo = db.db(config.DBName);
+		var version = process.env.VERSION || "1.0";
+		var env = "";
+
+		dbo.collection(serviceName).findOne({}, function(err, result) {
+			if (err) throw err;
+			version = result.version;
+			env = result.env;
+			db.close();
+
+			var response = {
+				host: hostname,
+				version: version,
+				service: serviceName,
+				port: port,
+				remoteServiceName: remoteServiceName,
+				remotePort: remotePort,
+				env: env
+			};
+
+			res.send(JSON.stringify(response));
+		});
+	});
+});
+
 app.get('/service', (req, res) => {
 	https.get('http://'+remoteServiceName+':'+remotePort+'/', (resp) => {
 		let data = '';
 		resp.on('data', (chunk) => {
 			data += chunk;
-	    });	
+	    });
 
 		resp.on('end', () => {
     		res.send(data);
@@ -35,4 +54,3 @@ app.get('/service', (req, res) => {
 	});
 });
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
-
