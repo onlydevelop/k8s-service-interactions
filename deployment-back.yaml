@@ -22,3 +22,5 @@ spec:
         env:
         - name: VERSION
           value: "1.0"
+        - name: SERVICE
+          value: "backend"

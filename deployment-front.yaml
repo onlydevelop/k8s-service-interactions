@@ -26,3 +26,5 @@ spec:
           value: "3000"
         - name: VERSION
           value: "2.0"
+        - name: SERVICE
+          value: "frontend"
