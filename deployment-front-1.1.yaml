@@ -1,0 +1,32 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: front-deployment
+  labels:
+    app: front
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: front
+  template:
+    metadata:
+      labels:
+        app: front
+    spec:
+      containers:
+      - name: front
+        image: backend:1.1
+        ports:
+        - containerPort: 3000
+        env:
+        - name: REMOTE_SERVICE
+          value: "back-service"
+        - name: REMOTE_PORT
+          value: "3000"
+        - name: VERSION
+          value: "2.0"
+        - name: SERVICE
+          value: "frontend"
+        - name: NODE_ENV
+          value: "prod"

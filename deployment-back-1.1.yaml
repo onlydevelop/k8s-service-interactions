@@ -1,0 +1,28 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: back-deployment
+  labels:
+    app: back
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: back
+  template:
+    metadata:
+      labels:
+        app: back
+    spec:
+      containers:
+      - name: back
+        image: backend:1.1
+        ports:
+        - containerPort: 3000
+        env:
+        - name: VERSION
+          value: "1.0"
+        - name: SERVICE
+          value: "backend"
+        - name: NODE_ENV
+          value: "prod"
