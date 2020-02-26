@@ -1,0 +1,8 @@
+kind: Service
+apiVersion: v1
+metadata:
+ name: mongo
+spec:
+ ports:
+ - port: 27017
+   targetPort: 59200

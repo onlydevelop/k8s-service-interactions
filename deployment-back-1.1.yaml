@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: back
-        image: backend:1.0
+        image: backend:1.1
         ports:
         - containerPort: 3000
         env:
@@ -24,3 +24,5 @@ spec:
           value: "1.0"
         - name: SERVICE
           value: "backend"
+        - name: NODE_ENV
+          value: "prod"
