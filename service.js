@@ -10,8 +10,10 @@ const remoteServiceName = process.env.REMOTE_SERVICE;
 const mongoClient = require('mongodb').MongoClient;
 const config = require('config');
 
+const dbhost = "mongodb://" + config.DBUser + ":" + config.DBPassword + "@mongo/" + config.DBName
+
 app.get('/', (req, res) => {
-	mongoClient.connect(config.DBHost, {useUnifiedTopology: true}, function(err, db) {
+	mongoClient.connect(dbhost, {useUnifiedTopology: true}, function(err, db) {
 		if (err) throw err;
 
 		var dbo = db.db(config.DBName);
