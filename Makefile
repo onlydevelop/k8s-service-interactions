@@ -21,4 +21,3 @@ destroy-1.1:
 	kubectl delete -f service-back.yaml
 	kubectl delete -f deployment-back-1.1.yaml
 	kubectl delete -f service-mongo.yaml
-	kubectl delete -f endpoints-mongo.yaml
