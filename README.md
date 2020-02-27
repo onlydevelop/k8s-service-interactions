@@ -8,3 +8,7 @@ In this section we are going to access one back-service from another front-servi
 ## Part 2: Accessing a service outside the cluster
 
 We have extended the above example to connect to an external mongodb database from one of the service in the kubernetes cluster. Read [more...](README-part2.md)
+
+## Part 3: Adding ingress
+
+We have extended the first example to add ingress in front of the service to get a feel of host-based routing and fanout. We will also see load balancing of requests. Read [more...](README-part3.md)
