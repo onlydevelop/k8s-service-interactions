@@ -21,3 +21,15 @@ destroy-1.1:
 	kubectl delete -f service-back.yaml
 	kubectl delete -f deployment-back-1.1.yaml
 	kubectl delete -f service-mongo.yaml
+create-1.2:
+	kubectl apply -f deployment-back.yaml
+	kubectl apply -f service-back.yaml
+	kubectl apply -f deployment-front.yaml
+	kubectl apply -f service-front.yaml
+	kubectl apply -f ingress.yaml
+destroy-1.2:
+	kubectl delete -f ingress.yaml
+	kubectl delete -f service-front.yaml
+	kubectl delete -f deployment-front.yaml
+	kubectl delete -f service-back.yaml
+	kubectl delete -f deployment-back.yaml
