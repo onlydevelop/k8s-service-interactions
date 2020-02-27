@@ -6,6 +6,7 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
+  - host: myexample1.com
     http:
       paths:
       - path: /back-service
@@ -15,4 +16,11 @@ spec:
       - path: /front-service
         backend:
           serviceName: front-service
+          servicePort: 3000
+  - host: myexample2.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: back-service
           servicePort: 3000
